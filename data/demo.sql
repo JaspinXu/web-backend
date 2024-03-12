@@ -107,3 +107,29 @@ CREATE TABLE `login_log` (
 -- ----------------------------
 INSERT INTO `login_log` VALUES ('1', 'root', '127.0.0.1', '管理员', 'Windows 10', 'Chrome 10 108.0.0.0', '2023-01-11 15:45:16');
 INSERT INTO `login_log` VALUES ('2', 'root', '127.0.0.1', '管理员', 'Windows 10', 'Chrome 10 V108.0.0.0', '2023-01-11 15:45:53');
+
+-- ----------------------------
+-- Table structure for lab
+-- ----------------------------
+
+DROP TABLE IF EXISTS `lab`;
+CREATE TABLE `lab` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `lab_code` varchar(50) NOT NULL,
+    `lab_name` varchar(32) DEFAULT NULL,
+    `student_num` int(11) DEFAULT NULL,
+    `description` varchar(255) DEFAULT NULL,
+    `created_by` int(11) DEFAULT NULL COMMENT '创建人',
+    `updated_by` int(11) DEFAULT NULL COMMENT '更新人',
+    `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk` (`lab_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of lab
+-- ----------------------------
+
+INSERT INTO `lab` VALUES ('1', 'root', '软件实验室', '50', '这是一条备注' , '1', '1', '2021-01-01 08:00:00', '2023-01-11 11:41:40');
+INSERT INTO `lab` VALUES ('2', 'test', '软件实验室', '50', '这是另一条备注' ,null, '1', '2023-01-10 22:14:16', '2023-01-11 13:00:57');

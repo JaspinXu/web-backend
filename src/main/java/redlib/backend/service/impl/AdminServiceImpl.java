@@ -41,7 +41,7 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminPrivMapper adminPrivMapper;
 
-    @Override
+    @Override                   //这个方法的主要作用是获取系统中所有模块的信息，包括模块名和模块的权限列表
     public List<ModuleVO> listModules() {
         List<ModuleVO> moduleVOList = new ArrayList<>();
         Map<String, Object> serviceBeansMap = applicationContext.getBeansWithAnnotation(BackendModule.class);
@@ -70,7 +70,7 @@ public class AdminServiceImpl implements AdminService {
         return moduleVOList;
     }
 
-    @Override
+    @Override                   //这个方法的主要作用是根据一组管理员ID，快速获取对应的管理员名称
     public Map<Integer, String> getNameMap(Set<Integer> adminIds) {
         Map<Integer, String> adminMap;
         if (!CollectionUtils.isEmpty(adminIds)) {
@@ -83,7 +83,7 @@ public class AdminServiceImpl implements AdminService {
         return adminMap;
     }
 
-    @Override
+    @Override                      //这个方法的主要作用是根据查询条件获取管理员的分页列表
     public Page<AdminVO> list(KeywordQueryDTO queryDTO) {
         if (queryDTO == null) {
             queryDTO = new KeywordQueryDTO();
@@ -112,7 +112,7 @@ public class AdminServiceImpl implements AdminService {
         return new Page<>(pageUtils.getCurrent(), pageUtils.getPageSize(), pageUtils.getTotal(), voList);
     }
 
-    @Override
+    @Override                     //这个方法的主要作用是根据管理员ID获取管理员的详细信息，包括管理员的基本信息和权限列表
     public AdminDTO getDetail(Integer id) {
         Assert.notNull(id, "id不能为空");
         Admin admin = adminMapper.selectByPrimaryKey(id);
@@ -141,7 +141,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    @Transactional
+    @Transactional                  //这个方法的主要作用是更新管理员的信息，包括管理员的基本信息和权限
     public Integer update(AdminDTO adminDTO) {
         AdminUtils.validate(adminDTO);
         Assert.notNull(adminDTO.getId(), "管理员id不能为空");
@@ -164,7 +164,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    @Transactional
+    @Transactional                     //这个方法的主要作用是添加新的管理员，包括管理员的基本信息和权限。
     public Integer add(AdminDTO adminDTO) {
         AdminUtils.validate(adminDTO);
         Assert.hasText(adminDTO.getPassword(), "密码不能为空");
@@ -181,7 +181,7 @@ public class AdminServiceImpl implements AdminService {
         return admin.getId();
     }
 
-    @Override
+    @Override                          //这个方法的主要作用是删除一组管理员，包括管理员的基本信息和权限
     public Integer delete(List<Integer> ids) {
         Assert.notEmpty(ids, "删除列表不能为空");
         int size = adminMapper.delete(ids);
@@ -189,7 +189,7 @@ public class AdminServiceImpl implements AdminService {
         return size;
     }
 
-    @Override
+    @Override                         //这个方法的主要作用是更新管理员的密码
     public void updatePassword(String oldPassword, String password) {
         Token token = ThreadContextHolder.getToken();
         Admin admin = adminMapper.login(token.getUserCode(), FormatUtils.password(oldPassword));
@@ -198,7 +198,7 @@ public class AdminServiceImpl implements AdminService {
         adminMapper.updateByPrimaryKey(admin);
     }
 
-    private void updateOtherInfo(AdminDTO adminDTO) {
+    private void updateOtherInfo(AdminDTO adminDTO) {         //这个方法的主要作用是更新管理员的模块和权限信息
         if ("root".equalsIgnoreCase(adminDTO.getUserCode())) {
             return;
         }
