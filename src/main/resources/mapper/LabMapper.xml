@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="redlib.backend.dao.LabMapper">
+  <resultMap id="BaseResultMap" type="redlib.backend.model.Lab">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="lab_code" jdbcType="VARCHAR" property="labCode" />
+    <result column="lab_name" jdbcType="VARCHAR" property="labName" />
+    <result column="student_num" jdbcType="INTEGER" property="studentNum" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="created_by" jdbcType="INTEGER" property="createdBy" />
+    <result column="updated_by" jdbcType="INTEGER" property="updatedBy" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lab_code, lab_name, student_num, description, created_by, updated_by, created_at, 
+    updated_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lab
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lab
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="redlib.backend.model.Lab">
+    insert into lab (id, lab_code, lab_name, 
+      student_num, description, created_by, 
+      updated_by, created_at, updated_at
+      )
+    values (#{id,jdbcType=INTEGER}, #{labCode,jdbcType=VARCHAR}, #{labName,jdbcType=VARCHAR}, 
+      #{studentNum,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{createdBy,jdbcType=INTEGER}, 
+      #{updatedBy,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="redlib.backend.model.Lab">
+    insert into lab
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="labCode != null">
+        lab_code,
+      </if>
+      <if test="labName != null">
+        lab_name,
+      </if>
+      <if test="studentNum != null">
+        student_num,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="labCode != null">
+        #{labCode,jdbcType=VARCHAR},
+      </if>
+      <if test="labName != null">
+        #{labName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNum != null">
+        #{studentNum,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="redlib.backend.model.Lab">
+    update lab
+    <set>
+      <if test="labCode != null">
+        lab_code = #{labCode,jdbcType=VARCHAR},
+      </if>
+      <if test="labName != null">
+        lab_name = #{labName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNum != null">
+        student_num = #{studentNum,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="redlib.backend.model.Lab">
+    update lab
+    set lab_code = #{labCode,jdbcType=VARCHAR},
+      lab_name = #{labName,jdbcType=VARCHAR},
+      student_num = #{studentNum,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=INTEGER},
+      updated_by = #{updatedBy,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

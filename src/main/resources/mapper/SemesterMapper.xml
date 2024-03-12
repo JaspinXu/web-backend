@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="redlib.backend.dao.SemesterMapper">
+  <resultMap id="BaseResultMap" type="redlib.backend.model.Semester">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="semester_code" jdbcType="VARCHAR" property="semesterCode" />
+    <result column="semester_number" jdbcType="VARCHAR" property="semesterNumber" />
+    <result column="semester_week" jdbcType="VARCHAR" property="semesterWeek" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, semester_code, semester_number, semester_week
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from semester
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from semester
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="redlib.backend.model.Semester">
+    insert into semester (id, semester_code, semester_number, 
+      semester_week)
+    values (#{id,jdbcType=INTEGER}, #{semesterCode,jdbcType=VARCHAR}, #{semesterNumber,jdbcType=VARCHAR}, 
+      #{semesterWeek,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="redlib.backend.model.Semester">
+    insert into semester
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="semesterCode != null">
+        semester_code,
+      </if>
+      <if test="semesterNumber != null">
+        semester_number,
+      </if>
+      <if test="semesterWeek != null">
+        semester_week,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="semesterCode != null">
+        #{semesterCode,jdbcType=VARCHAR},
+      </if>
+      <if test="semesterNumber != null">
+        #{semesterNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="semesterWeek != null">
+        #{semesterWeek,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="redlib.backend.model.Semester">
+    update semester
+    <set>
+      <if test="semesterCode != null">
+        semester_code = #{semesterCode,jdbcType=VARCHAR},
+      </if>
+      <if test="semesterNumber != null">
+        semester_number = #{semesterNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="semesterWeek != null">
+        semester_week = #{semesterWeek,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="redlib.backend.model.Semester">
+    update semester
+    set semester_code = #{semesterCode,jdbcType=VARCHAR},
+      semester_number = #{semesterNumber,jdbcType=VARCHAR},
+      semester_week = #{semesterWeek,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

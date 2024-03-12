@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="redlib.backend.dao.ScheduleMapper">
+  <resultMap id="BaseResultMap" type="redlib.backend.model.Schedule">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="reservation_code" jdbcType="VARCHAR" property="reservationCode" />
+    <result column="lab_code" jdbcType="VARCHAR" property="labCode" />
+    <result column="lab_name" jdbcType="VARCHAR" property="labName" />
+    <result column="teacher_code" jdbcType="VARCHAR" property="teacherCode" />
+    <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+    <result column="course_code" jdbcType="VARCHAR" property="courseCode" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="student_num" jdbcType="INTEGER" property="studentNum" />
+    <result column="course_week" jdbcType="VARCHAR" property="courseWeek" />
+    <result column="course_day" jdbcType="VARCHAR" property="courseDay" />
+    <result column="course_time" jdbcType="VARCHAR" property="courseTime" />
+    <result column="total_count" jdbcType="INTEGER" property="totalCount" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="deleted" jdbcType="TINYINT" property="deleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, reservation_code, lab_code, lab_name, teacher_code, teacher_name, course_code, 
+    course_name, student_num, course_week, course_day, course_time, total_count, contact_phone, 
+    description, status, created_at, updated_at, created_by, updated_by, deleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from schedule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from schedule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="redlib.backend.model.Schedule">
+    insert into schedule (id, reservation_code, lab_code, 
+      lab_name, teacher_code, teacher_name, 
+      course_code, course_name, student_num, 
+      course_week, course_day, course_time, 
+      total_count, contact_phone, description, 
+      status, created_at, updated_at, 
+      created_by, updated_by, deleted
+      )
+    values (#{id,jdbcType=INTEGER}, #{reservationCode,jdbcType=VARCHAR}, #{labCode,jdbcType=VARCHAR}, 
+      #{labName,jdbcType=VARCHAR}, #{teacherCode,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, 
+      #{courseCode,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{studentNum,jdbcType=INTEGER}, 
+      #{courseWeek,jdbcType=VARCHAR}, #{courseDay,jdbcType=VARCHAR}, #{courseTime,jdbcType=VARCHAR}, 
+      #{totalCount,jdbcType=INTEGER}, #{contactPhone,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updatedBy,jdbcType=VARCHAR}, #{deleted,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="redlib.backend.model.Schedule">
+    insert into schedule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="reservationCode != null">
+        reservation_code,
+      </if>
+      <if test="labCode != null">
+        lab_code,
+      </if>
+      <if test="labName != null">
+        lab_name,
+      </if>
+      <if test="teacherCode != null">
+        teacher_code,
+      </if>
+      <if test="teacherName != null">
+        teacher_name,
+      </if>
+      <if test="courseCode != null">
+        course_code,
+      </if>
+      <if test="courseName != null">
+        course_name,
+      </if>
+      <if test="studentNum != null">
+        student_num,
+      </if>
+      <if test="courseWeek != null">
+        course_week,
+      </if>
+      <if test="courseDay != null">
+        course_day,
+      </if>
+      <if test="courseTime != null">
+        course_time,
+      </if>
+      <if test="totalCount != null">
+        total_count,
+      </if>
+      <if test="contactPhone != null">
+        contact_phone,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reservationCode != null">
+        #{reservationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="labCode != null">
+        #{labCode,jdbcType=VARCHAR},
+      </if>
+      <if test="labName != null">
+        #{labName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherCode != null">
+        #{teacherCode,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null">
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCode != null">
+        #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNum != null">
+        #{studentNum,jdbcType=INTEGER},
+      </if>
+      <if test="courseWeek != null">
+        #{courseWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDay != null">
+        #{courseDay,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTime != null">
+        #{courseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCount != null">
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="contactPhone != null">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="redlib.backend.model.Schedule">
+    update schedule
+    <set>
+      <if test="reservationCode != null">
+        reservation_code = #{reservationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="labCode != null">
+        lab_code = #{labCode,jdbcType=VARCHAR},
+      </if>
+      <if test="labName != null">
+        lab_name = #{labName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherCode != null">
+        teacher_code = #{teacherCode,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null">
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCode != null">
+        course_code = #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null">
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNum != null">
+        student_num = #{studentNum,jdbcType=INTEGER},
+      </if>
+      <if test="courseWeek != null">
+        course_week = #{courseWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDay != null">
+        course_day = #{courseDay,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTime != null">
+        course_time = #{courseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCount != null">
+        total_count = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="contactPhone != null">
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="redlib.backend.model.Schedule">
+    update schedule
+    set reservation_code = #{reservationCode,jdbcType=VARCHAR},
+      lab_code = #{labCode,jdbcType=VARCHAR},
+      lab_name = #{labName,jdbcType=VARCHAR},
+      teacher_code = #{teacherCode,jdbcType=VARCHAR},
+      teacher_name = #{teacherName,jdbcType=VARCHAR},
+      course_code = #{courseCode,jdbcType=VARCHAR},
+      course_name = #{courseName,jdbcType=VARCHAR},
+      student_num = #{studentNum,jdbcType=INTEGER},
+      course_week = #{courseWeek,jdbcType=VARCHAR},
+      course_day = #{courseDay,jdbcType=VARCHAR},
+      course_time = #{courseTime,jdbcType=VARCHAR},
+      total_count = #{totalCount,jdbcType=INTEGER},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
