@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import redlib.backend.annotation.BackendModule;
 import redlib.backend.annotation.Privilege;
 import redlib.backend.dto.DepartmentDTO;
@@ -74,4 +75,11 @@ public class DepartmentController {
         os.close();
         workbook.close();
     }
+
+    @PostMapping("importDepartment")
+    @Privilege("add")
+    public int importUsers(@RequestParam("file") MultipartFile file) throws Exception {
+        return departmentService.importDepartment(file.getInputStream(), file.getOriginalFilename());
+    }
 }
+
