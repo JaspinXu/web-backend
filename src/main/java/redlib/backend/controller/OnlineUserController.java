@@ -27,12 +27,14 @@ public class OnlineUserController {
     @GetMapping("list")
     @Privilege("page")
     public List<OnlineUserVO> listOnlineUser() {
-        return tokenService.list();
+        return
+                tokenService.list();
     }
 
     @GetMapping("kick")
     @Privilege("kick")
     public void kick(String readerToken) {
+
         tokenService.kick(readerToken);
     }
 }

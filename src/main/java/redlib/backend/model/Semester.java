@@ -1,12 +1,13 @@
 package redlib.backend.model;
 
+import java.util.Date;
 import lombok.Data;
 
 /**
  * 描述:semester表的实体类
  * @version
  * @author:  19826
- * @创建时间: 2024-03-12
+ * @创建时间: 2024-03-16
  */
 @Data
 public class Semester {
@@ -16,17 +17,17 @@ public class Semester {
     private Integer id;
 
     /**
-     * 学期编码
+     * 学期名
      */
-    private String semesterCode;
+    private String semesterName;
 
     /**
-     * 学期号
+     * 创建时间
      */
-    private String semesterNumber;
+    private Date createdAt;
 
     /**
-     * 开课周
+     * 更新时间
      */
-    private String semesterWeek;
+    private Date updatedAt;
 }

@@ -28,6 +28,7 @@ public class LoginLogController {
     @PostMapping("list")
     @Privilege("page")
     public Page<LoginLogVO> listLoginLog(@RequestBody LoginLogQueryDTO queryDTO) {
+
         return logService.list(queryDTO);
     }
 }

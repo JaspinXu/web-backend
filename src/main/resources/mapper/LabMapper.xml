@@ -5,16 +5,17 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="lab_code" jdbcType="VARCHAR" property="labCode" />
     <result column="lab_name" jdbcType="VARCHAR" property="labName" />
-    <result column="student_num" jdbcType="INTEGER" property="studentNum" />
+    <result column="student_max" jdbcType="INTEGER" property="studentMax" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="created_by" jdbcType="INTEGER" property="createdBy" />
     <result column="updated_by" jdbcType="INTEGER" property="updatedBy" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="deleted" jdbcType="TINYINT" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, lab_code, lab_name, student_num, description, created_by, updated_by, created_at, 
-    updated_at
+    id, lab_code, lab_name, student_max, description, created_by, updated_by, created_at, 
+    updated_at, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -28,13 +29,13 @@
   </delete>
   <insert id="insert" parameterType="redlib.backend.model.Lab">
     insert into lab (id, lab_code, lab_name, 
-      student_num, description, created_by, 
-      updated_by, created_at, updated_at
-      )
+      student_max, description, created_by, 
+      updated_by, created_at, updated_at, 
+      deleted)
     values (#{id,jdbcType=INTEGER}, #{labCode,jdbcType=VARCHAR}, #{labName,jdbcType=VARCHAR}, 
-      #{studentNum,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{createdBy,jdbcType=INTEGER}, 
-      #{updatedBy,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}
-      )
+      #{studentMax,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{createdBy,jdbcType=INTEGER}, 
+      #{updatedBy,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="redlib.backend.model.Lab">
     insert into lab
@@ -48,8 +49,8 @@
       <if test="labName != null">
         lab_name,
       </if>
-      <if test="studentNum != null">
-        student_num,
+      <if test="studentMax != null">
+        student_max,
       </if>
       <if test="description != null">
         description,
@@ -66,6 +67,9 @@
       <if test="updatedAt != null">
         updated_at,
       </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -77,8 +81,8 @@
       <if test="labName != null">
         #{labName,jdbcType=VARCHAR},
       </if>
-      <if test="studentNum != null">
-        #{studentNum,jdbcType=INTEGER},
+      <if test="studentMax != null">
+        #{studentMax,jdbcType=INTEGER},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -95,6 +99,9 @@
       <if test="updatedAt != null">
         #{updatedAt,jdbcType=TIMESTAMP},
       </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=TINYINT},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="redlib.backend.model.Lab">
@@ -106,8 +113,8 @@
       <if test="labName != null">
         lab_name = #{labName,jdbcType=VARCHAR},
       </if>
-      <if test="studentNum != null">
-        student_num = #{studentNum,jdbcType=INTEGER},
+      <if test="studentMax != null">
+        student_max = #{studentMax,jdbcType=INTEGER},
       </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
@@ -124,6 +131,9 @@
       <if test="updatedAt != null">
         updated_at = #{updatedAt,jdbcType=TIMESTAMP},
       </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -131,12 +141,13 @@
     update lab
     set lab_code = #{labCode,jdbcType=VARCHAR},
       lab_name = #{labName,jdbcType=VARCHAR},
-      student_num = #{studentNum,jdbcType=INTEGER},
+      student_max = #{studentMax,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
       created_by = #{createdBy,jdbcType=INTEGER},
       updated_by = #{updatedBy,jdbcType=INTEGER},
       created_at = #{createdAt,jdbcType=TIMESTAMP},
-      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

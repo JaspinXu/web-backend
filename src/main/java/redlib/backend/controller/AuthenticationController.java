@@ -38,6 +38,7 @@ public class AuthenticationController {
     @GetMapping("getCurrentUser")
     @Privilege
     public Token getCurrentUser() {
+
         return ThreadContextHolder.getToken();
     }
 

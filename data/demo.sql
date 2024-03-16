@@ -114,25 +114,26 @@ INSERT INTO `login_log` VALUES ('2', 'root', '127.0.0.1', '管理员', 'Windows 
 
 DROP TABLE IF EXISTS `lab`;
 CREATE TABLE `lab` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `lab_code` varchar(50) NOT NULL,
-    `lab_name` varchar(32) DEFAULT NULL,
-    `student_num` int(11) DEFAULT NULL,
-    `description` varchar(255) DEFAULT NULL,
+    `id` int(11) NOT NULL AUTO_INCREMENT ,
+    `lab_code` varchar(50) NOT NULL COMMENT '实验室编码',
+    `lab_name` varchar(32) DEFAULT NULL COMMENT '实验室名称',
+    `student_max` int(11) DEFAULT NULL COMMENT '实验人数最大容量',
+    `description` varchar(255) DEFAULT NULL COMMENT '备注',
     `created_by` int(11) DEFAULT NULL COMMENT '创建人',
     `updated_by` int(11) DEFAULT NULL COMMENT '更新人',
     `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted` tinyint(4) DEFAULT '0' COMMENT '删除标记',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk1` (`lab_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lab
 -- ----------------------------
 
-INSERT INTO `lab` VALUES ('1', 'root', '微机实验室', '50', '这是一条备注' , '1', '1', '2021-01-01 08:00:00', '2023-01-11 11:41:40');
-INSERT INTO `lab` VALUES ('2', 'test', '微机实验室', '50', '这是另一条备注' ,null, '1', '2023-01-10 22:14:16', '2023-01-11 13:00:57');
+INSERT INTO `lab` VALUES ('1', '1', '微机实验室', '50', '这是一条备注' , '1', '1', '2024-03-15 08:00:00', '2024-03-15 11:41:40','0');
+INSERT INTO `lab` VALUES ('2', '2', '微机实验室', '50', '这是另一条备注' ,null, '1', '2024-03-16 22:14:16', '2024-03-16 13:00:57','0');
 
 -- ----------------------------
 -- Table structure for schedule
@@ -141,36 +142,30 @@ INSERT INTO `lab` VALUES ('2', 'test', '微机实验室', '50', '这是另一条
 DROP TABLE IF EXISTS `schedule`;
 CREATE TABLE `schedule` (
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `reservation_code` varchar(50) NOT NULL COMMENT '预约单号',
-    `lab_code` varchar(50) NOT NULL COMMENT '实验室编码',
     `lab_name` varchar(32) DEFAULT NULL  COMMENT '实验室名称',
-    `teacher_code` varchar(50) DEFAULT NULL COMMENT '实验教师编码',
-    `teacher_name` varchar(32) DEFAULT NULL COMMENT '教师名称',
-    `course_code` varchar(50) DEFAULT NULL COMMENT '课程编码',
     `course_name` varchar(32) DEFAULT NULL COMMENT '课程名称',
-    `student_num` int(11) DEFAULT NULL COMMENT '学生人数',
+    `teacher_name` varchar(32) DEFAULT NULL COMMENT '教师名称',
+    `course_time` varchar(50) DEFAULT NULL COMMENT '节次',
     `course_week` varchar(50) DEFAULT NULL COMMENT '周次',
     `course_day` varchar(50) DEFAULT NULL COMMENT '星期',
-    `course_time` varchar(50) DEFAULT NULL COMMENT '节次',
-    `total_count` int(11) DEFAULT NULL COMMENT '实验课总次数',
+    `semester_name` varchar(40) DEFAULT NULL COMMENT '学期名',
+    `student_num` int(11) DEFAULT NULL COMMENT '学生人数',
     `contact_phone` varchar(255) DEFAULT NULL COMMENT '联系电话',
     `description` varchar(255) DEFAULT NULL COMMENT '备注',
-    `status` tinyint DEFAULT NULL COMMENT '预约单状态',
-    `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `created_by` varchar(50) DEFAULT NULL COMMENT '创建人',
     `updated_by` varchar(50) DEFAULT NULL COMMENT '更新人',
+    `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted` tinyint(4) DEFAULT '0' COMMENT '删除标记',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk2` (`reservation_code`,`lab_code`,`teacher_code`,`course_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of schedule
 -- ----------------------------
 
-INSERT INTO `schedule` VALUES ('1', '114514', '1', '微机实验室', '1', '城北徐工', '1', '操作系统', '50', '1-8', '六' ,'1234' , '8' , '19819759063' , '这是一条备注' , null , '2024-03-12 22:36:01' , '2024-03-12 22:36:01' , '1' , '1' ,'0' );
-INSERT INTO `schedule` VALUES ('2', '1919810', '2', '计算机高级应用实验室', '2', 'Jaspin', '2', '数据结构', '50', '9-16', '一' ,'5678' , '8' , '1145141919810' , '这是另一条备注' , null , '2024-03-12 22:37:01' , '2024-03-12 22:37:01' , '2' , '2' ,'0' );
+INSERT INTO `schedule` VALUES ('1', '微机实验室', '操作系统', '城北徐工', '1234', '1-8', '六', null , '50' ,'114514' , '这是一条备注' , null, null , '2024-03-12 22:36:01' , '2024-03-12 22:36:01','0' );
+INSERT INTO `schedule` VALUES ('2', '计算机高级应用实验室', '数据结构', 'Jaspin', '78', '9-16', '一', null , '50' ,'1919810' , '这是另一条备注' , null, null , '2024-03-12 22:36:01' , '2024-03-12 22:36:01','0' );
 
 -- ----------------------------
 -- Table structure for semester
@@ -179,19 +174,13 @@ INSERT INTO `schedule` VALUES ('2', '1919810', '2', '计算机高级应用实验
 DROP TABLE IF EXISTS `semester`;
 CREATE TABLE `semester` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-    `semester_code` varchar(40) NOT NULL COMMENT '学期编码',
-    `semester_number` varchar(40) DEFAULT NULL COMMENT '学期号',
-    `semester_week` varchar(50) DEFAULT NULL COMMENT '开课周',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `iUnique` (`semester_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+    `semester_name` varchar(40) DEFAULT NULL COMMENT '学期名',
+    `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of semester
 -- ----------------------------
-
-INSERT INTO `semester` VALUES ('1', '1', '第一学期', '1-8');
-INSERT INTO `semester` VALUES ('2', '2', '第一学期', '9-16');
-INSERT INTO `semester` VALUES ('3', '3', '第二学期', '1-8');
-INSERT INTO `semester` VALUES ('4', '4', '第二学期', '9-16');
 

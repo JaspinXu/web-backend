@@ -7,7 +7,7 @@ import lombok.Data;
  * 描述:lab表的实体类
  * @version
  * @author:  19826
- * @创建时间: 2024-03-12
+ * @创建时间: 2024-03-16
  */
 @Data
 public class Lab {
@@ -17,22 +17,22 @@ public class Lab {
     private Integer id;
 
     /**
-     * 
+     * 实验室编码
      */
     private String labCode;
 
     /**
-     * 
+     * 实验室名称
      */
     private String labName;
 
     /**
-     * 
+     * 实验人数最大容量
      */
-    private Integer studentNum;
+    private Integer studentMax;
 
     /**
-     * 
+     * 备注
      */
     private String description;
 
@@ -55,4 +55,9 @@ public class Lab {
      * 更新时间
      */
     private Date updatedAt;
+
+    /**
+     * 删除标记
+     */
+    private Byte deleted;
 }

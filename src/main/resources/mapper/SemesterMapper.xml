@@ -3,12 +3,12 @@
 <mapper namespace="redlib.backend.dao.SemesterMapper">
   <resultMap id="BaseResultMap" type="redlib.backend.model.Semester">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="semester_code" jdbcType="VARCHAR" property="semesterCode" />
-    <result column="semester_number" jdbcType="VARCHAR" property="semesterNumber" />
-    <result column="semester_week" jdbcType="VARCHAR" property="semesterWeek" />
+    <result column="semester_name" jdbcType="VARCHAR" property="semesterName" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, semester_code, semester_number, semester_week
+    id, semester_name, created_at, updated_at
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,10 +21,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="redlib.backend.model.Semester">
-    insert into semester (id, semester_code, semester_number, 
-      semester_week)
-    values (#{id,jdbcType=INTEGER}, #{semesterCode,jdbcType=VARCHAR}, #{semesterNumber,jdbcType=VARCHAR}, 
-      #{semesterWeek,jdbcType=VARCHAR})
+    insert into semester (id, semester_name, created_at, 
+      updated_at)
+    values (#{id,jdbcType=INTEGER}, #{semesterName,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="redlib.backend.model.Semester">
     insert into semester
@@ -32,51 +32,51 @@
       <if test="id != null">
         id,
       </if>
-      <if test="semesterCode != null">
-        semester_code,
+      <if test="semesterName != null">
+        semester_name,
       </if>
-      <if test="semesterNumber != null">
-        semester_number,
+      <if test="createdAt != null">
+        created_at,
       </if>
-      <if test="semesterWeek != null">
-        semester_week,
+      <if test="updatedAt != null">
+        updated_at,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="semesterCode != null">
-        #{semesterCode,jdbcType=VARCHAR},
+      <if test="semesterName != null">
+        #{semesterName,jdbcType=VARCHAR},
       </if>
-      <if test="semesterNumber != null">
-        #{semesterNumber,jdbcType=VARCHAR},
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="semesterWeek != null">
-        #{semesterWeek,jdbcType=VARCHAR},
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="redlib.backend.model.Semester">
     update semester
     <set>
-      <if test="semesterCode != null">
-        semester_code = #{semesterCode,jdbcType=VARCHAR},
+      <if test="semesterName != null">
+        semester_name = #{semesterName,jdbcType=VARCHAR},
       </if>
-      <if test="semesterNumber != null">
-        semester_number = #{semesterNumber,jdbcType=VARCHAR},
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="semesterWeek != null">
-        semester_week = #{semesterWeek,jdbcType=VARCHAR},
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="redlib.backend.model.Semester">
     update semester
-    set semester_code = #{semesterCode,jdbcType=VARCHAR},
-      semester_number = #{semesterNumber,jdbcType=VARCHAR},
-      semester_week = #{semesterWeek,jdbcType=VARCHAR}
+    set semester_name = #{semesterName,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

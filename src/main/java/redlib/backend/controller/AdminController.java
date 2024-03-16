@@ -30,6 +30,7 @@ public class AdminController {
     @PostMapping("list")
     @Privilege("page")
     public Page<AdminVO> listAdmin(@RequestBody KeywordQueryDTO queryDTO) {
+
         return adminService.list(queryDTO);
     }
 
@@ -57,6 +58,7 @@ public class AdminController {
     @PostMapping("delete")
     @Privilege("delete")
     public Integer deleteAdmin(@RequestBody List<Integer> ids) {
+
         return adminService.delete(ids);
     }
 }
