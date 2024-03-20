@@ -19,35 +19,40 @@
     <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
     <result column="deleted" jdbcType="TINYINT" property="deleted" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, lab_name, course_name, teacher_name, course_time, course_week, course_day, semester_name, 
     student_num, contact_phone, description, created_by, updated_by, created_at, updated_at, 
     deleted
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from schedule
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from schedule
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="redlib.backend.model.Schedule">
     insert into schedule (id, lab_name, course_name, 
       teacher_name, course_time, course_week, 
       course_day, semester_name, student_num, 
       contact_phone, description, created_by, 
-      updated_by, created_at, updated_at, 
+      updated_by, created_at, updated_at,
       deleted)
     values (#{id,jdbcType=INTEGER}, #{labName,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, 
       #{teacherName,jdbcType=VARCHAR}, #{courseTime,jdbcType=VARCHAR}, #{courseWeek,jdbcType=VARCHAR}, 
       #{courseDay,jdbcType=VARCHAR}, #{semesterName,jdbcType=VARCHAR}, #{studentNum,jdbcType=INTEGER}, 
       #{contactPhone,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
-      #{updatedBy,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=TINYINT})
   </insert>
+
   <insert id="insertSelective" parameterType="redlib.backend.model.Schedule">
     insert into schedule
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -151,6 +156,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="redlib.backend.model.Schedule">
     update schedule
     <set>
@@ -202,6 +208,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="redlib.backend.model.Schedule">
     update schedule
     set lab_name = #{labName,jdbcType=VARCHAR},
@@ -221,4 +228,46 @@
       deleted = #{deleted,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--查询（分页）-->
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from schedule
+    <where>
+      <if test="queryDTO.teacherName != null">
+        and teacher_name like #{queryDTO.teacherName}
+      </if>
+      <if test="queryDTO.courseName != null">
+        and course_name like #{queryDTO.courseName}
+      </if>
+      <if test="queryDTO.createdAt != null">
+      and date(created_at)=date(#{queryDTO.createdAt})
+      </if>
+    </where>
+    <if test="queryDTO.orderBy != null">
+      order by ${queryDTO.orderBy}
+    </if>
+    <if test="queryDTO.orderBy == null">
+      order by id desc
+    </if>
+    limit #{offset}, #{limit}
+  </select>
+
+  <!--查询实验安排列表（分页）命中个数-->
+  <select id="count" resultType="integer">
+    select count(*) from schedule
+    <where>
+      <if test="queryDTO.teacherName != null">
+        and teacher_name like #{queryDTO.teacherName}
+      </if>
+      <if test="queryDTO.courseName != null">
+        and course_name like #{queryDTO.courseName}
+      </if>
+      <if test="queryDTO.createdAt != null">
+        and date(created_at)=date(#{queryDTO.createdAt})
+      </if>
+    </where>
+  </select>
+
 </mapper>

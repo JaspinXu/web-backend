@@ -7,25 +7,30 @@
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, semester_name, created_at, updated_at
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from semester
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from semester
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="redlib.backend.model.Semester">
     insert into semester (id, semester_name, created_at, 
       updated_at)
     values (#{id,jdbcType=INTEGER}, #{semesterName,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
       #{updatedAt,jdbcType=TIMESTAMP})
   </insert>
+
   <insert id="insertSelective" parameterType="redlib.backend.model.Semester">
     insert into semester
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -57,6 +62,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="redlib.backend.model.Semester">
     update semester
     <set>
@@ -72,6 +78,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="redlib.backend.model.Semester">
     update semester
     set semester_name = #{semesterName,jdbcType=VARCHAR},
@@ -79,4 +86,46 @@
       updated_at = #{updatedAt,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--查询（分页）-->
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from semester
+    <where>
+      <if test="queryDTO.semesterName != null">
+        and semester_name like #{queryDTO.semesterName}
+      </if>
+      <if test="queryDTO.createdAt != null">
+        and date(created_at)=date(#{queryDTO.createdAt})
+      </if>
+      <if test="queryDTO.updatedAt != null">
+        and date(updated_at)=date(#{queryDTO.updatedAt})
+      </if>
+    </where>
+    <if test="queryDTO.orderBy != null">
+      order by ${queryDTO.orderBy}
+    </if>
+    <if test="queryDTO.orderBy == null">
+      order by id desc
+    </if>
+    limit #{offset}, #{limit}
+  </select>
+
+  <!--查询学期列表（分页）命中个数-->
+  <select id="count" resultType="integer">
+    select count(*) from semester
+    <where>
+      <if test="queryDTO.semesterName != null">
+        and semester_name like #{queryDTO.semesterName}
+      </if>
+      <if test="queryDTO.createdAt != null">
+        and date(created_at)=date(#{queryDTO.createdAt})
+      </if>
+      <if test="queryDTO.updatedAt != null">
+        and date(updated_at)=date(#{queryDTO.updatedAt})
+      </if>
+    </where>
+  </select>
+
 </mapper>

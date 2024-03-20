@@ -8,18 +8,17 @@ import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ScheduleQueryDTO extends PageQueryDTO {
+public class SemesterQueryDTO extends PageQueryDTO {
     /**
-     * 教师名称，模糊匹配
+     * 学期名称，模糊匹配
      */
-    private String teacherName;
-    /**
-     * 课程名称，模糊匹配
-     */
-    private String courseName;
+    private String semesterName;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date updatedAt;
 
     private String orderBy;
 }

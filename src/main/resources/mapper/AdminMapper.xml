@@ -47,6 +47,7 @@
         from admin
         where id = #{id,jdbcType=INTEGER}
     </delete>
+
     <insert id="insert" parameterType="redlib.backend.model.Admin" keyProperty="id" useGeneratedKeys="true">
         insert into admin (user_code, name, sex,
                            enabled, password, department,

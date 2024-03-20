@@ -7,21 +7,25 @@
         <result column="mod_id" property="modId" jdbcType="VARCHAR"/>
         <result column="priv" property="priv" jdbcType="VARCHAR"/>
     </resultMap>
+
     <sql id="Base_Column_List">
         id
         , admin_id, mod_id, priv
     </sql>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from admin_priv
         where id = #{id,jdbcType=INTEGER}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from admin_priv
         where id = #{id,jdbcType=INTEGER}
     </delete>
+
     <insert id="insert" parameterType="redlib.backend.model.AdminPriv">
         insert into admin_priv (id, admin_id, mod_id,
                                 priv)

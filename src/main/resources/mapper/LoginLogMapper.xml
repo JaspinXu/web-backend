@@ -10,27 +10,32 @@
         <result column="browser" jdbcType="VARCHAR" property="browser"/>
         <result column="created_at" jdbcType="TIMESTAMP" property="createdAt"/>
     </resultMap>
+
     <sql id="Base_Column_List">
         id
         , user_code, ip_address, name, os, browser, created_at
     </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from login_log
         where id = #{id,jdbcType=BIGINT}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from login_log
         where id = #{id,jdbcType=BIGINT}
     </delete>
+
     <insert id="insert" parameterType="redlib.backend.model.LoginLog">
         insert into login_log (id, user_code, ip_address,
                                name, os, browser)
         values (#{id,jdbcType=BIGINT}, #{userCode,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR},
                 #{name,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR})
     </insert>
+
     <update id="updateByPrimaryKey" parameterType="redlib.backend.model.LoginLog">
         update login_log
         set user_code  = #{userCode,jdbcType=VARCHAR},
