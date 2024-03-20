@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class LabDTO {
-
+    /**
+     *
+     */
     private Integer id;
 
     /**
@@ -21,6 +23,11 @@ public class LabDTO {
      * 实验人数最大容量
      */
     private Integer studentMax;
+
+    /**
+     * 占据状态
+     */
+    private Byte occupy;
 
     /**
      * 备注

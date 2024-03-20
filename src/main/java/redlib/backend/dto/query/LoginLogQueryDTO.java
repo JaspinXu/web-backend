@@ -6,12 +6,6 @@ import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
-/**
- * 描述：
- *
- * @author lihongwen
- * @date 2020/4/8
- */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class LoginLogQueryDTO extends PageQueryDTO {

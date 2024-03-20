@@ -7,7 +7,7 @@ import lombok.Data;
  * 描述:schedule表的实体类
  * @version
  * @author:  19826
- * @创建时间: 2024-03-16
+ * @创建时间: 2024-03-20
  */
 @Data
 public class Schedule {

@@ -118,6 +118,7 @@ CREATE TABLE `lab` (
     `lab_code` varchar(50) NOT NULL COMMENT '实验室编码',
     `lab_name` varchar(32) DEFAULT NULL COMMENT '实验室名称',
     `student_max` int(11) DEFAULT NULL COMMENT '实验人数最大容量',
+    `occupy` tinyint(4) DEFAULT '0' COMMENT '占据状态',
     `description` varchar(255) DEFAULT NULL COMMENT '备注',
     `created_by` int(11) DEFAULT NULL COMMENT '创建人',
     `updated_by` int(11) DEFAULT NULL COMMENT '更新人',
@@ -132,8 +133,8 @@ CREATE TABLE `lab` (
 -- Records of lab
 -- ----------------------------
 
-INSERT INTO `lab` VALUES ('1', '1', '微机实验室', '50', '这是一条备注' , '1', '1', '2024-03-15 08:00:00', '2024-03-15 11:41:40','0');
-INSERT INTO `lab` VALUES ('2', '2', '微机实验室', '50', '这是另一条备注' ,null, '1', '2024-03-16 22:14:16', '2024-03-16 13:00:57','0');
+INSERT INTO `lab` VALUES ('1', '1', '微机实验室', '50', '0', '这是一条备注' , '1', '1', '2024-03-15 08:00:00', '2024-03-15 11:41:40','0');
+INSERT INTO `lab` VALUES ('2', '2', '微机实验室', '50', '0', '这是另一条备注' ,null, '1', '2024-03-16 22:14:16', '2024-03-16 13:00:57','0');
 
 -- ----------------------------
 -- Table structure for schedule
