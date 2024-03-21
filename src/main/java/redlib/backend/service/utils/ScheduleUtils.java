@@ -28,7 +28,7 @@ public class ScheduleUtils {
      * @param nameMap 映射
      * @return VO对象
      */
-    public static ScheduleVO convertToVO(Schedule schedule, Map<String, String> nameMap) {
+    public static ScheduleVO convertToVO(Schedule schedule, Map<Integer, String> nameMap) {
         ScheduleVO scheduleVO = new ScheduleVO();
         BeanUtils.copyProperties(schedule, scheduleVO);
 

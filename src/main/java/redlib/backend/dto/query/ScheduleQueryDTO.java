@@ -18,8 +18,4 @@ public class ScheduleQueryDTO extends PageQueryDTO {
      */
     private String courseName;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date createdAt;
-
-    private String orderBy;
 }

@@ -59,7 +59,10 @@ public interface DepartmentMapper {
      * @param limit    记录数量
      * @return 部门列表
      */
-    List<Department> list(@Param("queryDTO") DepartmentQueryDTO queryDTO, @Param("offset") Integer offset, @Param("limit") Integer limit
+    List<Department> list(
+            @Param("queryDTO") DepartmentQueryDTO queryDTO,
+            @Param("offset") Integer offset,
+            @Param("limit") Integer limit
     );
 
     /**

@@ -37,12 +37,11 @@ public interface LabMapper {
      * 根据实验室编码获取实验室信息详情
      *
      * @param labCode 实验室编码
-     * @param tenantCode  租户代码
      * @return 实验室信息详情
      */
     Lab getByCode(
-            @Param("labCode") String labCode,
-            @Param("tenantCode") String tenantCode);
+            @Param("labCode") String labCode);
+
     /**
      * 根据查询条件获取命中个数
      *
@@ -59,7 +58,10 @@ public interface LabMapper {
      * @param limit    记录数量
      * @return 实验室列表
      */
-    List<Lab> list(@Param("queryDTO") LabQueryDTO queryDTO, @Param("offset") Integer offset, @Param("limit") Integer limit
+    List<Lab> list(
+            @Param("queryDTO") LabQueryDTO queryDTO,
+            @Param("offset") Integer offset,
+            @Param("limit") Integer limit
     );
 
     /**
@@ -73,21 +75,17 @@ public interface LabMapper {
      * 根据实验室代码列表获取实验室信息列表
      *
      * @param codeList   实验室代码列表
-     * @param tenantCode 租户代码
-     * @return 部门列表
+     * @return 实验室列表
      */
     List<Lab> listByCodes(
-            @Param("codeList") List<String> codeList,
-            @Param("tenantCode") String tenantCode);
+            @Param("codeList") List<String> codeList);
 
     /**
      * 根据实验室名称查询实验室列表
      *
      * @param labName 实验室名称，模糊匹配
-     * @param tenantCode     租户代码
      * @return 实验室列表
      */
     List<Lab> listByName(
-            @Param("labName") String labName,
-            @Param("tenantCode") String tenantCode);
+            @Param("labName") String labName);
 }
