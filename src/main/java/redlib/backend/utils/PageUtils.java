@@ -134,6 +134,7 @@ public class PageUtils {
      * @return 空分页数据
      */
     public <T> Page<T> getNullPage() {
+
         return new Page<T>(current, pageSize, total, Collections.emptyList());
     }
 }

@@ -26,17 +26,5 @@ public class SemesterVO {
      */
     private Date updatedAt;
 
-    /**
-     * 创建人
-     */
-    private String createdBy;
 
-    /**
-     * 更新人
-     */
-    private String updatedBy;
-
-    private String createdByDesc;
-
-    private String updatedByDesc;
 }
