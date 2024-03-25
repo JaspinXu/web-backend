@@ -26,7 +26,7 @@ public interface ScheduleMapper {
      * @param queryDTO 查询条件
      * @return 命中数量
      */
-    Integer count(ScheduleQueryDTO queryDTO);
+    Integer count(@Param("queryDTO") ScheduleQueryDTO queryDTO);
 
     /**
      * 根据查询条件获取实验安排列表

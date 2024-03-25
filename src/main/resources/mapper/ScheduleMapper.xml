@@ -241,16 +241,7 @@
       <if test="queryDTO.courseName != null">
         and course_name like #{queryDTO.courseName}
       </if>
-      <if test="queryDTO.createdAt != null">
-      and date(created_at)=date(#{queryDTO.createdAt})
-      </if>
     </where>
-    <if test="queryDTO.orderBy != null">
-      order by ${queryDTO.orderBy}
-    </if>
-    <if test="queryDTO.orderBy == null">
-      order by id desc
-    </if>
     limit #{offset}, #{limit}
   </select>
 
@@ -263,9 +254,6 @@
       </if>
       <if test="queryDTO.courseName != null">
         and course_name like #{queryDTO.courseName}
-      </if>
-      <if test="queryDTO.createdAt != null">
-        and date(created_at)=date(#{queryDTO.createdAt})
       </if>
     </where>
   </select>

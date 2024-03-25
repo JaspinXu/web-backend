@@ -25,7 +25,7 @@ public interface SemesterMapper {
      * @param queryDTO 查询条件
      * @return 命中数量
      */
-    Integer count(SemesterQueryDTO queryDTO);
+    Integer count(@Param("queryDTO") SemesterQueryDTO queryDTO);
 
     /**
      * 根据查询条件获取学期列表

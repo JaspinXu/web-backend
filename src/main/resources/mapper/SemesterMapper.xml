@@ -128,4 +128,12 @@
     </where>
   </select>
 
+  <update id="deleteByCodes">
+    delete from semester
+    where id in
+    <foreach item="item" index="index" collection="codeList" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+
 </mapper>

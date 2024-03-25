@@ -83,6 +83,7 @@ public class AdminServiceImpl implements AdminService {
         return adminMap;
     }
 
+
     @Override                      //这个方法的主要作用是根据查询条件获取管理员的分页列表
     public Page<AdminVO> list(KeywordQueryDTO queryDTO) {
         if (queryDTO == null) {
