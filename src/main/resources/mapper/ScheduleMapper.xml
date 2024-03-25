@@ -13,8 +13,8 @@
     <result column="student_num" jdbcType="INTEGER" property="studentNum" />
     <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
-    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="created_by" jdbcType="INTEGER" property="createdBy" />
+    <result column="updated_by" jdbcType="INTEGER" property="updatedBy" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
     <result column="deleted" jdbcType="TINYINT" property="deleted" />
@@ -48,8 +48,8 @@
     values (#{id,jdbcType=INTEGER}, #{labName,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, 
       #{teacherName,jdbcType=VARCHAR}, #{courseTime,jdbcType=VARCHAR}, #{courseWeek,jdbcType=VARCHAR}, 
       #{courseDay,jdbcType=VARCHAR}, #{semesterName,jdbcType=VARCHAR}, #{studentNum,jdbcType=INTEGER}, 
-      #{contactPhone,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
-      #{updatedBy,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP},
+      #{contactPhone,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createdBy,jdbcType=INTEGER},
+      #{updatedBy,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=TINYINT})
   </insert>
 
@@ -140,10 +140,10 @@
         #{description,jdbcType=VARCHAR},
       </if>
       <if test="createdBy != null">
-        #{createdBy,jdbcType=VARCHAR},
+        #{createdBy,jdbcType=INTEGER},
       </if>
       <if test="updatedBy != null">
-        #{updatedBy,jdbcType=VARCHAR},
+        #{updatedBy,jdbcType=INTEGER},
       </if>
       <if test="createdAt != null">
         #{createdAt,jdbcType=TIMESTAMP},
@@ -191,10 +191,10 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="createdBy != null">
-        created_by = #{createdBy,jdbcType=VARCHAR},
+        created_by = #{createdBy,jdbcType=INTEGER},
       </if>
       <if test="updatedBy != null">
-        updated_by = #{updatedBy,jdbcType=VARCHAR},
+        updated_by = #{updatedBy,jdbcType=INTEGER},
       </if>
       <if test="createdAt != null">
         created_at = #{createdAt,jdbcType=TIMESTAMP},
@@ -221,8 +221,8 @@
       student_num = #{studentNum,jdbcType=INTEGER},
       contact_phone = #{contactPhone,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      created_by = #{createdBy,jdbcType=VARCHAR},
-      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=INTEGER},
+      updated_by = #{updatedBy,jdbcType=INTEGER},
       created_at = #{createdAt,jdbcType=TIMESTAMP},
       updated_at = #{updatedAt,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=TINYINT}

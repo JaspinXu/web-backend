@@ -60,10 +60,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         List<Schedule> list = scheduleMapper.list(queryDTO, pageUtils.getOffset(), pageUtils.getLimit());
 
         // 提取list列表中的创建人字段，到一个Set集合中去
-        Set<Integer> adminIds = list.stream().map(Schedule::getCreatedBy).map(Integer::parseInt).collect(Collectors.toSet());
+        Set<Integer> adminIds = list.stream().map(Schedule::getCreatedBy).collect(Collectors.toSet());
 
         // 提取list列表中的更新人字段，追加到集合中去
-        adminIds.addAll(list.stream().map(Schedule::getUpdatedBy).map(Integer::parseInt).collect(Collectors.toSet()));
+        adminIds.addAll(list.stream().map(Schedule::getUpdatedBy).collect(Collectors.toSet()));
 
         // 获取id到人名的映射
         Map<Integer, String> nameMap = adminService.getNameMap(adminIds);
@@ -96,8 +96,8 @@ public class ScheduleServiceImpl implements ScheduleService {
         BeanUtils.copyProperties(scheduleDTO, schedule);
         schedule.setCreatedAt(new Date());
         schedule.setUpdatedAt(new Date());
-        schedule.setCreatedBy(String.valueOf(token.getUserId()));
-        schedule.setUpdatedBy(String.valueOf(token.getUserId()));
+        schedule.setCreatedBy(token.getUserId());
+        schedule.setUpdatedBy(token.getUserId());
         // 调用DAO方法保存到数据库表
         scheduleMapper.insert(schedule);
         return schedule.getId();
@@ -130,7 +130,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         Assert.notNull(schedule, "没有找到实验安排，Id为：" + scheduleDTO.getId());
 
         BeanUtils.copyProperties(scheduleDTO, schedule);
-        schedule.setUpdatedBy(String.valueOf(token.getUserId()));
+        schedule.setUpdatedBy(token.getUserId());
         schedule.setUpdatedAt(new Date());
         scheduleMapper.updateByPrimaryKey(schedule);
         return schedule.getId();

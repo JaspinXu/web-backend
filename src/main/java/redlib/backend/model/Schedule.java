@@ -69,12 +69,12 @@ public class Schedule {
     /**
      * 创建人
      */
-    private String createdBy;
+    private Integer createdBy;
 
     /**
      * 更新人
      */
-    private String updatedBy;
+    private Integer updatedBy;
 
     /**
      * 创建时间
