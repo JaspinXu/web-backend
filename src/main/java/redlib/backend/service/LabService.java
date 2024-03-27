@@ -9,9 +9,19 @@ import redlib.backend.vo.LabVO;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface LabService {
     Page<LabVO> listByPage(LabQueryDTO queryDTO);
+
+    /**
+     * 这个方法的主要作用是根据一组实验室名称，快速获取对应的实验室编码
+     *
+     * @param labsFree 可用实验室名称集合
+     * @return 实验室信息
+     */
+    Map<String, String> getCodeMap(Set<String> labsFree);
 
     /**
      * 新建实验室

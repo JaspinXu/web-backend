@@ -136,4 +136,12 @@
     </foreach>
   </update>
 
+  <select id="selectByCreatedAt" parameterType="java.sql.Timestamp" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from semester
+    order by created_at desc
+    limit 1
+  </select>
+
 </mapper>

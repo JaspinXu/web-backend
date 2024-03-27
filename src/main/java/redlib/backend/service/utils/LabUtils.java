@@ -35,4 +35,19 @@ public class LabUtils {
         labVO.setCreatedByDesc(nameMap.get(lab.getCreatedBy()));
         return labVO;
     }
+
+    /**
+     * 将实体对象转换为VO对象
+     *
+     * @param lab 实体对象
+     * @param codeMap
+     * @return VO对象
+     */
+    public static LabVO convertToVOFree(Lab lab, Map<String, String> codeMap) {
+        LabVO labVO = new LabVO();
+        BeanUtils.copyProperties(lab, labVO);
+
+        labVO.setLabCode(codeMap.get(lab.getLabCode()));
+        return labVO;
+    }
 }

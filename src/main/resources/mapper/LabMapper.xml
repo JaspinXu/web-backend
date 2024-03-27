@@ -169,4 +169,37 @@
       #{item}
     </foreach>
   </update>
+
+  <select id="selectByOccupy" parameterType="java.lang.Byte" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from lab
+    where occupy = #{occupy,jdbcType=TINYINT}
+  </select>
+
+  <!-- 获取总个数(分页) -->
+  <select id="countSum" resultType="integer">
+    select count(*)
+    from lab
+  </select>
+
+  <!-- 获取所有实验室 -->
+  <select id="listAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from lab
+  </select>
+
+  <!-- 根据实验室名称列表获取实验室信息列表 -->
+  <select id="listByNames" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from lab
+    where lab_name in
+    <foreach item="item" index="index" collection="lab_names" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+
 </mapper>

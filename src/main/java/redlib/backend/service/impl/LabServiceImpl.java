@@ -5,6 +5,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import redlib.backend.dao.LabMapper;
 import redlib.backend.dto.LabDTO;
 import redlib.backend.dto.query.LabQueryDTO;
@@ -77,6 +78,18 @@ public class LabServiceImpl implements LabService {
         return new Page<>(pageUtils.getCurrent(), pageUtils.getPageSize(), pageUtils.getTotal(), voList);
     }
 
+    @Override                   //这个方法的主要作用是根据一组实验室名称，快速获取对应的实验室编码
+    public Map<String, String> getCodeMap(Set<String> labsFree) {
+        Map<String, String> labMap;
+        if (!CollectionUtils.isEmpty(labsFree)) {
+            List<Lab> labs = labMapper.listByNames(new ArrayList<>(labsFree));
+            labMap = labs.stream().collect(Collectors.toMap(Lab::getLabName, Lab::getLabCode));
+        } else {
+            labMap = new HashMap<>();
+        }
+
+        return labMap;
+    }
 
     /**
      * 新建实验室

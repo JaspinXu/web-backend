@@ -5,19 +5,25 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import redlib.backend.dao.LabMapper;
 import redlib.backend.dao.ScheduleMapper;
 import redlib.backend.dto.ScheduleDTO;
+import redlib.backend.dto.query.CheckQueryDTO;
 import redlib.backend.dto.query.ScheduleQueryDTO;
+import redlib.backend.model.Lab;
 import redlib.backend.model.Schedule;
 import redlib.backend.model.Page;
 import redlib.backend.model.Token;
 import redlib.backend.service.AdminService;
+import redlib.backend.service.LabService;
 import redlib.backend.service.ScheduleService;
+import redlib.backend.service.utils.LabUtils;
 import redlib.backend.service.utils.ScheduleUtils;
 import redlib.backend.utils.FormatUtils;
 import redlib.backend.utils.PageUtils;
 import redlib.backend.utils.ThreadContextHolder;
 import redlib.backend.utils.XlsUtils;
+import redlib.backend.vo.LabVO;
 import redlib.backend.vo.ScheduleVO;
 
 import javax.swing.*;
@@ -34,6 +40,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private LabMapper labMapper;
+
+    @Autowired
+    private LabService labService;
 
     /**
      * 分页获取实验安排表信息
@@ -78,6 +90,61 @@ public class ScheduleServiceImpl implements ScheduleService {
         return new Page<>(pageUtils.getCurrent(), pageUtils.getPageSize(), pageUtils.getTotal(), voList);
     }
 
+    /**
+     * 分页获取可用实验室信息
+     *
+     * @param queryDTO 查询条件和分页信息
+     * @return 带分页信息的可用实验室列表
+     */
+    @Override
+    public Page<LabVO> listFreeLab(CheckQueryDTO queryDTO) {
+        if (queryDTO == null) {
+            queryDTO = new CheckQueryDTO();
+        }
+
+        //这里应该开始找有交集的实验安排，然后用总实验室数目减去它，获得空闲的实验室个数
+        Integer size = labMapper.countSum() - scheduleMapper.countOccupy(queryDTO);
+        PageUtils pageUtils = new PageUtils(queryDTO.getCurrent(), queryDTO.getPageSize(), size);
+
+        if (size == 0) {
+            // 没有命中，则返回空数据。
+            return pageUtils.getNullPage();
+        }
+
+        // 利用myBatis到数据库中查询数据，以分页的方式
+        List<Schedule> list1 = scheduleMapper.listOccupy(queryDTO, pageUtils.getOffset(), pageUtils.getLimit());
+
+        // 提取list1列表中的实验室名称字段，到一个Set集合中去，即占用的实验室
+        Set<String> labsOccupy = list1.stream().map(Schedule::getLabName).collect(Collectors.toSet());
+
+        // 获取所有实验室名称
+        List<Lab> list2 = labMapper.listAll();
+
+        // 提取list2列表中的实验室名称字段，到一个Set集合中去，即所有的实验室
+        Set<String> labsAll = list2.stream().map(Lab::getLabName).collect(Collectors.toSet());
+
+        // 两者相减，得到空闲的实验室名称集合
+        Set<String> labsFree = new HashSet<>(labsAll);
+        labsFree.removeAll(labsOccupy);
+
+        //将集合转换成列表
+        List<String> labsFreeNames = new ArrayList<>(labsFree);
+
+        //获取可用实验室的信息
+        List<Lab> list3 = labMapper.listByNames(new ArrayList<>(labsFreeNames));
+
+        // 获取实验室名到实验室编码的映射
+        Map<String, String> codeMap = labService.getCodeMap(labsFree);
+
+        List<LabVO> voList = new ArrayList<>();
+        for (Lab lab : list3) {
+            // Lab对象转VO对象
+            LabVO vo = LabUtils.convertToVOFree(lab, codeMap);
+            voList.add(vo);
+        }
+
+        return new Page<>(pageUtils.getCurrent(), pageUtils.getPageSize(), pageUtils.getTotal(), voList);
+    }
 
     /**
      * 新建实验安排

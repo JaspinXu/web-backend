@@ -23,6 +23,8 @@ public interface LabMapper {
 
     Lab selectByPrimaryKey(Integer id);
 
+    Lab selectByOccupy(Byte occupy);
+
     int updateByPrimaryKeySelective(Lab record);
 
     /**
@@ -51,6 +53,14 @@ public interface LabMapper {
     Integer count(LabQueryDTO queryDTO);
 
     /**
+     * 根据获取当前表格实验室总数目
+     *
+     * @return 总数量
+     */
+    Integer countSum();
+
+
+    /**
      * 根据查询条件获取实验室列表
      *
      * @param queryDTO 查询条件
@@ -63,6 +73,13 @@ public interface LabMapper {
             @Param("offset") Integer offset,
             @Param("limit") Integer limit
     );
+
+    /**
+     * 获取所有实验室列表
+     *
+     * @return 实验室列表
+     */
+    List<Lab> listAll();
 
     /**
      * 根据代码列表批量删除实验室
@@ -88,4 +105,13 @@ public interface LabMapper {
      */
     List<Lab> listByName(
             @Param("labName") String labName);
+
+    /**
+     * 根据实验室名称列表查询实验室信息列表
+     *
+     * @param nameList 实验室名称列表
+     * @return 实验室列表
+     */
+    List<Lab> listByNames(
+            @Param("labName") List<String> nameList);
 }

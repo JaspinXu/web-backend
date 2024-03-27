@@ -2,15 +2,32 @@ package redlib.backend.service;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import redlib.backend.dto.ScheduleDTO;
+import redlib.backend.dto.query.CheckQueryDTO;
 import redlib.backend.dto.query.ScheduleQueryDTO;
 import redlib.backend.model.Page;
+import redlib.backend.vo.LabVO;
 import redlib.backend.vo.ScheduleVO;
 
 import java.io.InputStream;
 import java.util.List;
 
 public interface ScheduleService {
+
+    /**
+     * 分页获取安排信息
+     *
+     * @param queryDTO 查询条件和分页信息
+     * @return 带分页信息的实验安排列表
+     */
     Page<ScheduleVO> listByPage(ScheduleQueryDTO queryDTO);
+
+    /**
+     * 分页获取可用实验室信息
+     *
+     * @param queryDTO 查询条件和分页信息
+     * @return 带分页信息的可用实验室列表
+     */
+    Page<LabVO> listFreeLab(CheckQueryDTO queryDTO);
 
     /**
      * 新建实验安排表

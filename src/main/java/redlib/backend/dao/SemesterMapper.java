@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import redlib.backend.dto.query.SemesterQueryDTO;
 import redlib.backend.model.Semester;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface SemesterMapper {
@@ -14,6 +15,8 @@ public interface SemesterMapper {
     int insertSelective(Semester record);
 
     Semester selectByPrimaryKey(Integer id);
+
+    Semester selectByCreatedAt(Timestamp createdAt);
 
     int updateByPrimaryKeySelective(Semester record);
 
