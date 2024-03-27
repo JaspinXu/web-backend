@@ -259,7 +259,7 @@
   </select>
 
   <!--列出所有与输入对象三个字段三元组有交集的实验安排-->
-  <select id="listOccupy" resultType="BaseResultMap">
+  <select id="listOccupy" resultType="redlib.backend.model.Schedule">
     select
     <include refid="Base_Column_List"/>
     from schedule s
