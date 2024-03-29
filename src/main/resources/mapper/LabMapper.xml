@@ -196,7 +196,7 @@
     <include refid="Base_Column_List"/>
     from lab
     where lab_name in
-    <foreach item="item" index="index" collection="lab_names" open="(" separator="," close=")">
+    <foreach item="item" index="index" collection="labsFreeNames" open="(" separator="," close=")">
       #{item}
     </foreach>
   </select>

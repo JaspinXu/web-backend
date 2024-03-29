@@ -259,18 +259,17 @@
   </select>
 
   <!--列出所有与输入对象三个字段三元组有交集的实验安排-->
-  <select id="listOccupy" resultType="redlib.backend.model.Schedule">
+  <select id="listOccupy" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from schedule s
+    from schedule
     <where>
-      -- 检查course_time字段的交集
       <if test="queryDTO.courseTime != null and queryDTO.courseTime != ''">
-        or exists (
+        exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
-        from (select '${queryDTO.courseTime}' val) t
+        from (select #{queryDTO.courseTime} val) t
         inner join (select 1 n
           union all select 2
           union all select 3
@@ -291,16 +290,16 @@
           ) numbers on char_length(t.val)
         -char_length(replace(t.val, ',', '')) >= numbers.n - 1
         ) nums
-        where find_in_set(nums.num, s.course_time) > 0
+        where find_in_set(nums.num, schedule.course_time) > 0
         )
       </if>
-      -- 检查course_week字段的交集，逻辑与course_time相同
+      and
       <if test="queryDTO.courseWeek != null and queryDTO.courseWeek != ''">
-        or exists (
+        exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
-        from (select '${queryDTO.courseWeek}' val) t
+        from (select #{queryDTO.courseWeek} val) t
         inner join (select 1 n
           union all select 2
           union all select 3
@@ -321,16 +320,16 @@
           ) numbers on char_length(t.val)
         -char_length(replace(t.val, ',', '')) >= numbers.n - 1
         ) nums
-        where find_in_set(nums.num, s.course_week) > 0
+        where find_in_set(nums.num, schedule.course_week) > 0
         )
       </if>
-      -- 检查course_day字段的交集，逻辑与course_time相同
+      and
       <if test="queryDTO.courseDay != null and queryDTO.courseDay != ''">
-        or exists (
+        exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
-        from (select '${queryDTO.courseDay}' val) t
+        from (select #{queryDTO.courseDay} val) t
         inner join (select 1 n
           union all select 2
           union all select 3
@@ -351,7 +350,7 @@
           ) numbers on char_length(t.val)
         -char_length(replace(t.val, ',', '')) >= numbers.n - 1
         ) nums
-        where find_in_set(nums.num, s.course_day) > 0
+        where find_in_set(nums.num, schedule.course_day) > 0
         )
       </if>
     </where>
@@ -362,13 +361,12 @@
   <select id="countOccupy" resultType="integer">
     select count(*) from schedule
     <where>
-      -- 检查course_time字段的交集
       <if test="queryDTO.courseTime != null and queryDTO.courseTime != ''">
-        or exists (
+        exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
-        from (select '${queryDTO.courseTime}' val) t
+        from (select #{queryDTO.courseTime} val) t
         inner join (select 1 n
         union all select 2
         union all select 3
@@ -389,16 +387,16 @@
         ) numbers on char_length(t.val)
         -char_length(replace(t.val, ',', '')) >= numbers.n - 1
         ) nums
-        where find_in_set(nums.num, s.course_time) > 0
+        where find_in_set(nums.num, schedule.course_time) > 0
         )
       </if>
-      -- 检查course_week字段的交集，逻辑与course_time相同
+      and
       <if test="queryDTO.courseWeek != null and queryDTO.courseWeek != ''">
-        or exists (
+        exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
-        from (select '${queryDTO.courseWeek}' val) t
+        from (select #{queryDTO.courseWeek} val) t
         inner join (select 1 n
         union all select 2
         union all select 3
@@ -419,16 +417,16 @@
         ) numbers on char_length(t.val)
         -char_length(replace(t.val, ',', '')) >= numbers.n - 1
         ) nums
-        where find_in_set(nums.num, s.course_week) > 0
+        where find_in_set(nums.num, schedule.course_week) > 0
         )
       </if>
-      -- 检查course_day字段的交集，逻辑与course_time相同
+      and
       <if test="queryDTO.courseDay != null and queryDTO.courseDay != ''">
-        or exists (
+        exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
-        from (select '${queryDTO.courseDay}' val) t
+        from (select #{queryDTO.courseDay} val) t
         inner join (select 1 n
         union all select 2
         union all select 3
@@ -449,7 +447,7 @@
         ) numbers on char_length(t.val)
         -char_length(replace(t.val, ',', '')) >= numbers.n - 1
         ) nums
-        where find_in_set(nums.num, s.course_day) > 0
+        where find_in_set(nums.num, schedule.course_day) > 0
         )
       </if>
     </where>

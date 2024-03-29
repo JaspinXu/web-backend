@@ -8,9 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import redlib.backend.annotation.BackendModule;
 import redlib.backend.annotation.Privilege;
 import redlib.backend.dto.ScheduleDTO;
+import redlib.backend.dto.query.CheckQueryDTO;
 import redlib.backend.dto.query.ScheduleQueryDTO;
 import redlib.backend.model.Page;
 import redlib.backend.service.ScheduleService;
+import redlib.backend.vo.LabVO;
 import redlib.backend.vo.ScheduleVO;
 
 import java.io.OutputStream;
@@ -29,6 +31,12 @@ public class ScheduleController {
     @Privilege("page")
     public Page<ScheduleVO> listSchedule(@RequestBody ScheduleQueryDTO queryDTO) {
         return scheduleService.listByPage(queryDTO);
+    }
+
+    @PostMapping("listFreeLab")
+    @Privilege("page")
+    public Page<LabVO> listFreeLab(@RequestBody CheckQueryDTO queryDTO) {
+        return scheduleService.listFreeLab(queryDTO);
     }
 
     @PostMapping("addSchedule")

@@ -109,9 +109,9 @@ public interface LabMapper {
     /**
      * 根据实验室名称列表查询实验室信息列表
      *
-     * @param nameList 实验室名称列表
+     * @param labsFreeNames 实验室名称列表
      * @return 实验室列表
      */
     List<Lab> listByNames(
-            @Param("labName") List<String> nameList);
+            @Param("labsFreeNames") List<String> labsFreeNames);
 }

@@ -134,12 +134,12 @@ public class ScheduleServiceImpl implements ScheduleService {
         List<Lab> list3 = labMapper.listByNames(new ArrayList<>(labsFreeNames));
 
         // 获取实验室名到实验室编码的映射
-        Map<String, String> codeMap = labService.getCodeMap(labsFree);
+        //Map<String, String> codeMap = labService.getCodeMap(labsFree);
 
         List<LabVO> voList = new ArrayList<>();
         for (Lab lab : list3) {
             // Lab对象转VO对象
-            LabVO vo = LabUtils.convertToVOFree(lab, codeMap);
+            LabVO vo = LabUtils.convertToVOFree(lab);
             voList.add(vo);
         }
 

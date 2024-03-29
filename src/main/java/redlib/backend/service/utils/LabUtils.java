@@ -40,14 +40,14 @@ public class LabUtils {
      * 将实体对象转换为VO对象
      *
      * @param lab 实体对象
-     * @param codeMap
+     //* @param codeMap  Map<String, String> codeMap
      * @return VO对象
      */
-    public static LabVO convertToVOFree(Lab lab, Map<String, String> codeMap) {
+    public static LabVO convertToVOFree(Lab lab) {
         LabVO labVO = new LabVO();
         BeanUtils.copyProperties(lab, labVO);
 
-        labVO.setLabCode(codeMap.get(lab.getLabCode()));
+        //labVO.setLabCode(codeMap.get(lab.getLabCode()));
         return labVO;
     }
 }
