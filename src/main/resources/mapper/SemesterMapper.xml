@@ -136,7 +136,7 @@
     </foreach>
   </update>
 
-  <select id="selectByCreatedAt" parameterType="java.sql.Timestamp" resultMap="BaseResultMap">
+  <select id="getLatestTerm" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from semester

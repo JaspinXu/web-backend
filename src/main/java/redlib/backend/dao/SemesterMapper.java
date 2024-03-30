@@ -16,7 +16,7 @@ public interface SemesterMapper {
 
     Semester selectByPrimaryKey(Integer id);
 
-    Semester selectByCreatedAt(Timestamp createdAt);
+    Semester getLatestTerm();
 
     int updateByPrimaryKeySelective(Semester record);
 

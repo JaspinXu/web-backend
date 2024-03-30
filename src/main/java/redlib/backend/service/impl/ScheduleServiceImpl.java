@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import redlib.backend.dao.LabMapper;
 import redlib.backend.dao.ScheduleMapper;
+import redlib.backend.dao.SemesterMapper;
 import redlib.backend.dto.ScheduleDTO;
 import redlib.backend.dto.query.CheckQueryDTO;
 import redlib.backend.dto.query.ScheduleQueryDTO;
@@ -46,6 +47,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired
     private LabService labService;
+
+    @Autowired
+    private SemesterMapper semesterMapper;
 
     /**
      * 分页获取实验安排表信息
@@ -169,6 +173,46 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleMapper.insert(schedule);
         return schedule.getId();
     }
+
+    /**
+     * 根据提供的字段信息和可用实验室以及最新学期名创建实验安排表
+     * 即选择可用实验室保存后自动创建的实验安排
+     * @param queryDTO 预置安排or查询请求输入对象
+     * @param selectedFreeLabKeys  选择的可用实验室id列表
+     * //@return 成功与否
+     */
+    @Override
+    public Integer addScheduleAuto(CheckQueryDTO queryDTO, int[] selectedFreeLabKeys) {
+        if (queryDTO == null) {
+            queryDTO = new CheckQueryDTO();
+        }
+        if (selectedFreeLabKeys == null){
+            return 1;
+        }
+        //对每一个进行循环处理并插入数据表
+        for(int value : selectedFreeLabKeys){
+            ScheduleDTO scheduleDTO = new ScheduleDTO();
+            //先把输入字段复制过去
+            BeanUtils.copyProperties(queryDTO,scheduleDTO);
+            //然后根据id获取实验室名称，并将其赋值到对应字段
+            scheduleDTO.setLabName(labService.keyToName(value));
+            //获取目前学期表最新记录，将学期名其赋值到对应字段
+            scheduleDTO.setSemesterName(semesterMapper.getLatestTerm().getSemesterName());
+            Token token = ThreadContextHolder.getToken();
+            // 创建实体对象，用以保存到数据库
+            Schedule schedule = new Schedule();
+            // 将输入的字段全部复制到实体对象中
+            BeanUtils.copyProperties(scheduleDTO, schedule);
+            schedule.setCreatedAt(new Date());
+            schedule.setUpdatedAt(new Date());
+            schedule.setCreatedBy(token.getUserId());
+            schedule.setUpdatedBy(token.getUserId());
+            // 调用DAO方法保存到数据库表
+            scheduleMapper.insert(schedule);
+        }
+        return 0;
+    }
+
 
     @Override
     public ScheduleDTO getById(Integer id) {

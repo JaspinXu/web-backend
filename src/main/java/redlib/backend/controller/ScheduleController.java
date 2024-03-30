@@ -39,6 +39,12 @@ public class ScheduleController {
         return scheduleService.listFreeLab(queryDTO);
     }
 
+    @PostMapping("addScheduleAuto")
+    @Privilege("add")
+    public Integer addScheduleAuto(@RequestBody CheckQueryDTO queryDTO, @RequestParam int[] selectedFreeLabKeys) {
+        return scheduleService.addScheduleAuto(queryDTO , selectedFreeLabKeys);
+    }
+
     @PostMapping("addSchedule")
     @Privilege("add")
     public Integer addSchedule(@RequestBody ScheduleDTO scheduleDTO) {

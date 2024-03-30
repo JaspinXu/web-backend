@@ -91,6 +91,26 @@ public class LabServiceImpl implements LabService {
         return labMap;
     }
 
+    @Override                   //这个方法的主要作用是根据一组实验室ids，快速获取对应的实验室名称
+    public Map<Integer, String> keyToNameMap(List<Integer> freeLabKeys) {
+        Map<Integer, String> k2nMap;
+        Set<Integer> freeKeys = new HashSet<>(freeLabKeys);
+        if (!CollectionUtils.isEmpty(freeKeys)) {
+            List<Lab> labs = labMapper.listByIds(new ArrayList<>(freeKeys));
+            k2nMap = labs.stream().collect(Collectors.toMap(Lab::getId, Lab::getLabName));
+        } else {
+            k2nMap = new HashMap<>();
+        }
+
+        return k2nMap;
+    }
+
+    @Override
+    public String keyToName(Integer freeLabKey){
+        String freeLabName = labMapper.selectByPrimaryKey(freeLabKey).getLabName();
+        return freeLabName;
+    }
+
     /**
      * 新建实验室
      *

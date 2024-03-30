@@ -1,8 +1,10 @@
 package redlib.backend.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.poi.ss.usermodel.Workbook;
 import redlib.backend.dto.ScheduleDTO;
 import redlib.backend.dto.query.CheckQueryDTO;
+import redlib.backend.dto.query.LabQueryDTO;
 import redlib.backend.dto.query.ScheduleQueryDTO;
 import redlib.backend.model.Page;
 import redlib.backend.vo.LabVO;
@@ -29,13 +31,27 @@ public interface ScheduleService {
      */
     Page<LabVO> listFreeLab(CheckQueryDTO queryDTO);
 
+
+
     /**
      * 新建实验安排表
      *
      * @param scheduleDTO 实验安排表输入对象
-     * @return 实验室编码
+     * @return 实验安排编码
      */
     Integer addSchedule(ScheduleDTO scheduleDTO);
+
+    /**
+     * 根据提供的字段信息和可用实验室以及最新学期名创建实验安排表
+     * 即选择可用实验室保存后自动创建的实验安排
+     * @param queryDTO 预置安排or查询请求输入对象
+     * @param selectedFreeLabKeys  选择的可用实验室id列表
+     * //@return 成功与否
+     */
+    Integer addScheduleAuto(
+            CheckQueryDTO queryDTO,
+            int[] selectedFreeLabKeys
+    );
 
     ScheduleDTO getById(Integer id);
 

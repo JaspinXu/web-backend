@@ -201,5 +201,15 @@
     </foreach>
   </select>
 
+  <select id="listByIds" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from lab
+    where id in
+    <foreach item="item" index="index" collection="freeIds" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
 
 </mapper>

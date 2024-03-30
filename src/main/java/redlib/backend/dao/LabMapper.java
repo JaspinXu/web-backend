@@ -114,4 +114,9 @@ public interface LabMapper {
      */
     List<Lab> listByNames(
             @Param("labsFreeNames") List<String> labsFreeNames);
+
+    List<Lab> listByIds(
+            @Param("freeIds") List<Integer> freeIds);
+
+
 }

@@ -24,6 +24,22 @@ public interface LabService {
     Map<String, String> getCodeMap(Set<String> labsFree);
 
     /**
+     * 这个方法的主要作用是根据一组实验室ids，快速获取对应的实验室名称
+     *
+     * @param freeLabKeys 可用实验室ids集合
+     * @return 实验映射
+     */
+    Map<Integer, String> keyToNameMap(List<Integer> freeLabKeys);
+
+    /**
+     * 这个方法的主要作用是根据实验室id，快速获取对应的实验室名称
+     *
+     * @param freeLabKey 可用实验室id
+     * @return 实验室名称
+     */
+    String keyToName(Integer freeLabKey);
+
+    /**
      * 新建实验室
      *
      * @param labDTO 实验室输入对象

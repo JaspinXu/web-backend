@@ -265,7 +265,7 @@
     from schedule
     <where>
       <if test="queryDTO.courseTime != null and queryDTO.courseTime != ''">
-        exists (
+        and exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
@@ -293,9 +293,8 @@
         where find_in_set(nums.num, schedule.course_time) > 0
         )
       </if>
-      and
       <if test="queryDTO.courseWeek != null and queryDTO.courseWeek != ''">
-        exists (
+        and exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
@@ -323,9 +322,8 @@
         where find_in_set(nums.num, schedule.course_week) > 0
         )
       </if>
-      and
       <if test="queryDTO.courseDay != null and queryDTO.courseDay != ''">
-        exists (
+        and exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
@@ -362,7 +360,7 @@
     select count(*) from schedule
     <where>
       <if test="queryDTO.courseTime != null and queryDTO.courseTime != ''">
-        exists (
+        and exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
@@ -390,9 +388,8 @@
         where find_in_set(nums.num, schedule.course_time) > 0
         )
       </if>
-      and
       <if test="queryDTO.courseWeek != null and queryDTO.courseWeek != ''">
-        exists (
+        and exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
@@ -420,9 +417,8 @@
         where find_in_set(nums.num, schedule.course_week) > 0
         )
       </if>
-      and
       <if test="queryDTO.courseDay != null and queryDTO.courseDay != ''">
-        exists (
+        and exists (
         select 1
         from (
         select substring_index(substring_index(t.val, ',', numbers.n), ',', -1) num
