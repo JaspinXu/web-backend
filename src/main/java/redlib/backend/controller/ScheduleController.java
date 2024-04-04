@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import redlib.backend.annotation.BackendModule;
 import redlib.backend.annotation.Privilege;
+import redlib.backend.dto.ScheduleAutoRequestDTO;
 import redlib.backend.dto.ScheduleDTO;
+import redlib.backend.dto.SelectedKeysDTO;
 import redlib.backend.dto.query.CheckQueryDTO;
 import redlib.backend.dto.query.ScheduleQueryDTO;
 import redlib.backend.model.Page;
@@ -41,8 +43,10 @@ public class ScheduleController {
 
     @PostMapping("addScheduleAuto")
     @Privilege("add")
-    public Integer addScheduleAuto(@RequestBody CheckQueryDTO queryDTO, @RequestParam int[] selectedFreeLabKeys) {
-        return scheduleService.addScheduleAuto(queryDTO , selectedFreeLabKeys);
+    public Integer addScheduleAuto(@RequestBody ScheduleAutoRequestDTO request) {
+        CheckQueryDTO queryDTO = request.getQueryDTO();
+        SelectedKeysDTO keysDTO = request.getKeysDTO();
+        return scheduleService.addScheduleAuto(queryDTO, keysDTO);
     }
 
     @PostMapping("addSchedule")

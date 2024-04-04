@@ -9,6 +9,7 @@ import redlib.backend.dao.LabMapper;
 import redlib.backend.dao.ScheduleMapper;
 import redlib.backend.dao.SemesterMapper;
 import redlib.backend.dto.ScheduleDTO;
+import redlib.backend.dto.SelectedKeysDTO;
 import redlib.backend.dto.query.CheckQueryDTO;
 import redlib.backend.dto.query.ScheduleQueryDTO;
 import redlib.backend.model.Lab;
@@ -178,14 +179,15 @@ public class ScheduleServiceImpl implements ScheduleService {
      * 根据提供的字段信息和可用实验室以及最新学期名创建实验安排表
      * 即选择可用实验室保存后自动创建的实验安排
      * @param queryDTO 预置安排or查询请求输入对象
-     * @param selectedFreeLabKeys  选择的可用实验室id列表
+     * @param keysDTO  选择的可用实验室id列表
      * //@return 成功与否
      */
     @Override
-    public Integer addScheduleAuto(CheckQueryDTO queryDTO, int[] selectedFreeLabKeys) {
+    public Integer addScheduleAuto(CheckQueryDTO queryDTO, SelectedKeysDTO keysDTO) {
         if (queryDTO == null) {
             queryDTO = new CheckQueryDTO();
         }
+        List<Integer> selectedFreeLabKeys = keysDTO.getSelectedFreeLabKeys();
         if (selectedFreeLabKeys == null){
             return 1;
         }

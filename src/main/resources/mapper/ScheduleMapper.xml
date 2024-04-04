@@ -38,6 +38,13 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
+  <delete id="deleteByCodes">
+    delete from schedule where id in
+    <foreach item="item" index="index" collection="codeList" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
   <insert id="insert" parameterType="redlib.backend.model.Schedule">
     insert into schedule (id, lab_name, course_name, 
       teacher_name, course_time, course_week, 
