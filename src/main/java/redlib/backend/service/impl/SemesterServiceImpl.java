@@ -9,13 +9,10 @@ import redlib.backend.dto.SemesterDTO;
 import redlib.backend.dto.query.SemesterQueryDTO;
 import redlib.backend.model.Page;
 import redlib.backend.model.Semester;
-import redlib.backend.model.Token;
-import redlib.backend.service.AdminService;
 import redlib.backend.service.SemesterService;
 import redlib.backend.service.utils.SemesterUtils;
 import redlib.backend.utils.FormatUtils;
 import redlib.backend.utils.PageUtils;
-import redlib.backend.utils.ThreadContextHolder;
 import redlib.backend.vo.SemesterVO;
 
 import java.util.*;

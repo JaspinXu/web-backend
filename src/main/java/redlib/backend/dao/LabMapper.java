@@ -1,9 +1,7 @@
 package redlib.backend.dao;
 
 import org.apache.ibatis.annotations.Param;
-import redlib.backend.dto.query.DepartmentQueryDTO;
 import redlib.backend.dto.query.LabQueryDTO;
-import redlib.backend.model.Department;
 import redlib.backend.model.Lab;
 
 import java.util.List;

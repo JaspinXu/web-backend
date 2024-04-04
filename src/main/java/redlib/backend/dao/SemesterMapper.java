@@ -3,8 +3,6 @@ package redlib.backend.dao;
 import org.apache.ibatis.annotations.Param;
 import redlib.backend.dto.query.SemesterQueryDTO;
 import redlib.backend.model.Semester;
-
-import java.sql.Timestamp;
 import java.util.List;
 
 public interface SemesterMapper {

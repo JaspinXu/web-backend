@@ -1,8 +1,6 @@
 package redlib.backend.dao;
 
 import org.apache.ibatis.annotations.Param;
-import redlib.backend.dto.CheckDTO;
-import redlib.backend.dto.ScheduleDTO;
 import redlib.backend.dto.query.CheckQueryDTO;
 import redlib.backend.dto.query.ScheduleQueryDTO;
 import redlib.backend.model.Schedule;
