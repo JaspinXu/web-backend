@@ -248,6 +248,9 @@
       <if test="queryDTO.courseName != null">
         and course_name like #{queryDTO.courseName}
       </if>
+      <if test="queryDTO.labName != null">
+        and lab_name like #{queryDTO.labName}
+      </if>
     </where>
     limit #{offset}, #{limit}
   </select>

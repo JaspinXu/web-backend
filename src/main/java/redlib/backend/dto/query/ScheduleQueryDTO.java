@@ -14,4 +14,6 @@ public class ScheduleQueryDTO extends PageQueryDTO {
      * 课程名称，模糊匹配
      */
     private String courseName;
+
+    private String labName;
 }

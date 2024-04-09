@@ -59,7 +59,8 @@ public interface ScheduleMapper {
      */
     List<Schedule> listByName(
             @Param("teacherName") String teacherName,
-            @Param("courseName") String courseName);
+            @Param("courseName") String courseName,
+            @Param("labName") String labName);
 
     /**
      * 根据查询条件获取有交集实验安排列表
